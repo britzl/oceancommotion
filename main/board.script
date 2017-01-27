@@ -564,7 +564,41 @@ function on_message(self, message_id, message, sender)
 			-- striped + wrapped
 			--
 			elseif (is_striped(slot1) or is_striped(slot2)) and (is_wrapped(slot1) or is_wrapped(slot2)) then
-				print("striped+wrapped - add code to remove three horisontal and vertical lines of fishes")
+				local striped = is_striped(slot1) and slot1 or slot2
+				local wrapped = is_striped(slot1) and slot2 or slot1
+				respawn(wrapped, type_plain, wrapped.color)
+				--
+				-- horizontal striped fish
+				-- convert the fish above and below to a striped fish
+				--
+				if striped.type == type_striped_h then
+					local above = self.board[striped.x][striped.y + 1]
+					local below = self.board[striped.x][striped.y - 1]
+					if above then
+						respawn(above, type_striped_h, striped.color)
+						remove_fish(self.board, above)
+					end 
+					if below then
+						respawn(below, type_striped_h, striped.color)
+						remove_fish(self.board, below)
+					end
+				--
+				-- vertical striped fish
+				-- convert the fish left and right to a striped fish
+				--
+				else
+					local left = self.board[striped.x - 1] and self.board[striped.x - 1][striped.y]
+					local right = self.board[striped.x + 1] and self.board[striped.x + 1][striped.y]
+					if left then
+						respawn(left, type_striped_v, striped.color)
+						remove_fish(self.board, left)
+					end 
+					if right then
+						respawn(right, type_striped_v, striped.color)
+						remove_fish(self.board, right)
+					end
+				end
+				remove_fish(self.board, striped)
 				msg.post("#", "post-reaction")
 			--
 			-- bomb + striped
