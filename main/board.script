@@ -516,7 +516,9 @@ function on_message(self, message_id, message, sender)
 			-- bomb + bomb = remove all
 			--
 			if slot1.type == type_bomb and slot2.type == type_bomb then
-				print("bomb+bomb - add code to remove all fishes")
+				remove_fish(self.board, slot1)
+				remove_fish(self.board, slot2)
+				remove_fishes(self.board, get_fishes(self.board))
 				msg.post("#", "post-reaction")
 			--
 			-- striped + striped = one horisontal and one vertical lineblast
