@@ -626,8 +626,13 @@ function on_message(self, message_id, message, sender)
 					-- After filling, rerun the reaction
 					-- since more matches may have occurred
 					--
-					msg.post("#", "reaction")		
+					msg.post("#", "reaction")
 				end)
+			--
+			-- No slots to fill, acquire input so that the user can make a new move
+			--
+			else
+				msg.post(".", "acquire_input_focus")
 			end
 		end)
 	end
@@ -691,6 +696,11 @@ function on_input(self, action_id, action)
 		-- If there are two marked slots, initiate a swap!
 		--
 		if self.mark_1 and self.mark_2 then
+			--
+			-- release inpout focus so that the user can't interact with
+			-- the board while the swap and any reaction takes place
+			--
+			msg.post(".", "release_input_focus")
 			msg.post("#", "swap", { slot1 = { x = self.mark_1.x, y = self.mark_1.y }, slot2 = { x = self.mark_2.x, y = self.mark_2.y } })
 			--
 			-- Nil so we can mark again
