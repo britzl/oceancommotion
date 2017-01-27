@@ -343,7 +343,8 @@ local function remove_fish(board, fish)
 	-- Bomb
 	--
 	elseif fish.type == type_bomb then
-		print("removing bomb - add code to remove fishes of the color that is most common")
+		-- iterate colors and get all fish per color
+		-- keep the list with the most fish
 		local most_common = {}
 		for _,color in pairs(colors) do
 			local fishes = get_fishes(board, color)
@@ -351,6 +352,7 @@ local function remove_fish(board, fish)
 				most_common = fishes
 			end
 		end
+		-- remove the star fish and the fish that is most common
 		remove_fish(board, fish)
 		for _,fish in pairs(most_common) do
 			remove_fish(board, fish)
