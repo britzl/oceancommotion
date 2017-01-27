@@ -552,18 +552,9 @@ function on_message(self, message_id, message, sender)
 			-- bomb + fish = remove all fishes of that color
 			--
 			elseif slot1.type == type_bomb or slot2.type == type_bomb then
-				local the_bomb
-				local the_fish
-				if slot1.type == type_bomb and slot2.type ~= type_bomb then
-					the_bomb = slot1
-					the_fish = slot2
-				elseif slot1.type ~= type_bomb and slot2.type == type_bomb then
-					the_bomb = slot2
-					the_fish = slot1
-				end
-				local fishes = get_fishes(self.board, the_fish.color)
-				remove_fish(self.board, the_bomb)
-				remove_fishes(self.board, fishes)
+				remove_fish(self.board, slot1)
+				remove_fish(self.board, slot2)
+				print("bomb+fish - add code to remove all fish of the matched color")
 				msg.post("#", "post-reaction")
 			--
 			-- No special swap, trigger a normal reaction (ie matching of fishes)
