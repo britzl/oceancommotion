@@ -317,7 +317,13 @@ local function remove_fish(board, fish)
 	-- Wrapped explosion - remove all adjacent fishes
 	--
 	elseif fish.type == type_wrapped then
-		print("removing wrapped - add code to remove adjacent fish")
+		for x = fish.x - 1, fish.x + 1 do
+			for y = fish.y - 1, fish.y + 1 do
+				if board[x] and board[x][y] then
+					remove_fish(board, board[x][y])
+				end
+			end
+		end
 	--
 	-- Bomb
 	--
