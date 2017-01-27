@@ -532,7 +532,13 @@ function on_message(self, message_id, message, sender)
 			-- wrapped + wrapped - radius 2 explosion
 			--
 			elseif is_wrapped(slot1) and is_wrapped(slot2) then
-				print("wrapped+wrapped - add code to remove radius 2 explosion")
+				for x = slot1.x - 2, slot1.x + 2 do
+					for y = slot1.y - 2, slot1.y + 2 do
+						if self.board[x] and self.board[x][y] then
+							remove_fish(self.board, self.board[x][y])
+						end
+					end
+				end
 				msg.post("#", "post-reaction")
 			--
 			-- striped + wrapped
