@@ -238,7 +238,10 @@ local function vertical_neighbors(board, x, y)
 	return neighbors
 end
 
-
+--
+-- Return an iterator function for use in generic for loops
+-- to iterate all fish on the board
+--
 local function iterate_fishes(board)
 	local x = 0
 	local y = -1
@@ -277,6 +280,18 @@ local function mark_matches(board)
 	end
 end
 
+--
+-- Get all fish of a specific color
+--
+local function get_fishes(board, color)
+	local fishes = {}
+	for fish in iterate_fishes(board) do
+		if not color or fish.color == color then
+			table.insert(fishes, fish)
+		end
+	end
+	return fishes
+end 
 
 --
 -- Remove a single fish from the board
@@ -474,16 +489,6 @@ local function reaction(self)
 	end)
 end
 
-
-local function get_fishes(board, color)
-	local fishes = {}
-	for fish in iterate_fishes(board) do
-		if not color or fish.color == color then
-			table.insert(fishes, fish)
-		end
-	end
-	return fishes
-end 
 
 --
 -- MESSAGE HANDLING
