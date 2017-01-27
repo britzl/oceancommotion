@@ -329,6 +329,17 @@ local function remove_fish(board, fish)
 	--
 	elseif fish.type == type_bomb then
 		print("removing bomb - add code to remove fishes of the color that is most common")
+		local most_common = {}
+		for _,color in pairs(colors) do
+			local fishes = get_fishes(board, color)
+			if #fishes > #most_common then
+				most_common = fishes
+			end
+		end
+		remove_fish(board, fish)
+		for _,fish in pairs(most_common) do
+			remove_fish(board, fish)
+		end
 	end
 end
 
@@ -480,16 +491,6 @@ local function reaction(self)
 	end)
 end
 
-
-local function get_fishes(board, color)
-	local fishes = {}
-	for fish in iterate_fishes(board) do
-		if not color or fish.color == color then
-			table.insert(fishes, fish)
-		end
-	end
-	return fishes
-end 
 
 --
 -- MESSAGE HANDLING
