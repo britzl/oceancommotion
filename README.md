@@ -30,5 +30,6 @@ An improved version of the game with some of the above features implemented can 
 * 1.2 Starfish+fish
 * 1.3 Wrapped+wrapped
 * 1.4 Wrapped+striped
+* 1.5 Starfish+starfish
 * 1.6 Indirect removal of starfish
 * 5 Prevent user interaction 
